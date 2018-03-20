@@ -1,0 +1,202 @@
+#Test with: http://editor.swagger.io/
+
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Microservice for Vehicle Routes Ratings
+  description: python + Postgres
+  license:
+    name: Software Architecture 2018-I
+host: 192.168.99.101:6003
+basePath: /
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /ratings:
+    post:
+      summary: Creates a new rating
+      operationId: createRating
+      parameters:
+        - name: rating
+          in: body
+          required: true
+          description: Rating Object
+          schema:
+            $ref: '#/definitions/RatingInput'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    get:
+      summary: Returns all ratings
+      operationId: getAllRatings
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/RatingsList'
+        '406':
+          description: Not Acceptable (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+  /ratings/{id}:
+    get:
+      summary: Returns a rating with the given id
+      operationId: getRatingById
+      parameters:
+        - name: id
+          in: path
+          description: The id of the rating to be returned
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Rating'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    put:
+      summary: Updates a rating with the given id
+      operationId: updateRating
+      parameters:
+        - name: id
+          in: path
+          description: The id of the rating to be updated
+          required: true
+          type: integer
+        - name: rating
+          in: body
+          required: true
+          description: Rating Object
+          schema:
+            $ref: '#/definitions/RatingInput'
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    delete:
+      summary: Deletes a rating with the given id
+      operationId: deleteRating
+      parameters:
+        - name: id
+          in: path
+          description: The id of the rating to be deleted
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+definitions:
+
+  # Ratings
+  Rating:
+    type: object
+    properties:
+      id:
+        type: integer
+      route_id:
+        type: integer
+      user_id:
+        type: integer
+      car_rating:
+        type: integer
+      driver_rating:
+        type: integer
+      average_rating:
+        type: integer
+      comment:
+        type: string
+
+  RatingInput:
+    type: object
+    properties:
+      route_id:
+        type: integer
+      user_id:
+        type: integer
+      car_rating:
+        type: integer
+      driver_rating:
+        type: integer
+      comment:
+        type: string
+
+  RatingsList:
+    type: object
+    required:
+      - total
+      - list
+    properties:
+      total:
+        type: number
+      list:
+        type: array
+        items:
+          $ref: '#/definitions/Rating'
+
+# Errors
+  ErrorModel:
+    type: object
+    required:
+      - message
+      - code
+    properties:
+      message:
+        type: string
+      code:
+        type: number
+      description:
+        type: object

@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "route_id": 1,
+        "user_id": 1,
+        "car_rating": 4,
+        "driver_rating": 3,
+        "average_rating": 3.5,
+        "comment": "I liked the travel"
+    },
+    {
+        "id": 2,
+        "route_id": 1,
+        "user_id": 2,
+        "car_rating": 5,
+        "driver_rating": 3,
+        "average_rating": 4,
+        "comment": "The driver was awesome! I wanna marry him"
+    },
+    {
+        "id": 4,
+        "route_id": 1,
+        "user_id": 3,
+        "car_rating": 5,
+        "driver_rating": 3,
+        "average_rating": 4,
+        "comment": "I didn't like the driver"
+    },
+    {
+        "id": 5,
+        "route_id": 1,
+        "user_id": 5,
+        "car_rating": 5,
+        "driver_rating": 5,
+        "average_rating": 5,
+        "comment": "It was okay."
+    }
+]

@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  ratings-db:
+    image: postgres
+  ratings-ms:
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/ratings-ms
+    ports:
+      - "8000:8000"
+    depends_on:
+      - ratings-db

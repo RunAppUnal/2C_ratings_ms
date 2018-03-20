@@ -4,11 +4,11 @@ services:
   ratings-db:
     image: postgres
     ports:
-     - "5432:5432"
+     - "7003:5432"
   ratings-ms:
     build: .
-    command: python3 manage.py runserver 0.0.0.0:8000
+    command: python3 manage.py runserver 0.0.0.0:6003
     ports:
-      - "8000:8000"
+      - "6003:6003"
     depends_on:
       - ratings-db

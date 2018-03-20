@@ -4,4 +4,4 @@ Microservice for routes ratings
 
 * Python
 * Django
-* SQlite3
+* SQlite3 - postgres

@@ -9,3 +9,5 @@ ADD requirements.txt /ratings-ms
 RUN pip install -r requirements.txt
 
 ADD . /ratings-ms
+
+EXPOSE 6003
